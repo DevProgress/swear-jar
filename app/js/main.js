@@ -100,6 +100,7 @@ import jQuery from 'jquery';
       email: email
     }).done(() => {
       $('#email-success').removeClass('hidden');
+      $('#email').blur();
     }).fail(xhr => {
       if (xhr.status === 0) {
         // Safari tries to send an OPTIONS request to Google Apps, which fails
@@ -107,6 +108,7 @@ import jQuery from 'jquery';
         // of 0. In this case, though, the script actually succeeds.
         // <https://github.com/DevProgress/swear-jar/issues/34>
         $('#email-success').removeClass('hidden');
+        $('#email').blur();
       } else {
         $('#server-error').removeClass('hidden');
       }
