@@ -43,7 +43,7 @@ the `docs` directory is the final directory to be compiled and deployed to produ
 
 ### Deployment
 
-TODO: Fill this out.
+The site is hosted using GitHub Pages, which points at this repo's master branch. Simply run `gulp` to build the site and commit the changes to the `docs` folder.
 
 ## Built With
 

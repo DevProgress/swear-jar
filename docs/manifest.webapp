@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "name": "If I Had A Quarter...",
+  "launch_path": "/index.html",
+  "description": "Sign up to donate to Hillary for each tweet by Trump!",
+  "icons": {
+    "192": "/android-chrome-192x192.png"
+  },
+  "developer": {
+    "name": "",
+    "url": ""
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "If I Had A Quarter...",
+      "description": "Sign up to donate to Hillary for each tweet by Trump!"
+    }
+  }
+}

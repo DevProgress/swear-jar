@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>If I Had a Quarter…</title>
+    <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ef8c20">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Pledge a quarter for each time Trump tweets something &amp;hellip; Trumpy. We'll tally up the tweets and remind you once a week.">
+    <meta property="og:url" content="http://ifihadaquarter.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="If I Had a Quarter…">
+    <meta property="og:description" content="Pledge a quarter for each time Trump tweets something &amp;hellip; Trumpy. We'll tally up the tweets and remind you once a week.">
+    <meta property="og:image" content="http://ifihadaquarter.com/img/share.png">
+  </head>
+  <body>
+    <main class="body-main">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1 class="main-header">Donate a quarter to Hillary every time Trump tweets. <img src="/img/icon-twitter.svg" alt=""></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 main-content">
+            <form id="signup" action="https://script.google.com/macros/s/AKfycbyTuqk69p3R7v419Vhuqb8g1soBW5NrxbqkUvcU2gwB1nmlnpQ/exec" method="POST">
+              <legend class="form-header">Sign me up!</legend>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="sr-only">Email address</label>
+                  <input class="form-control" id="email" type="email" name="email" placeholder="Email address" required>
+                </div>
+                <div class="form-submit">
+                  <button class="btn btn-submit">Pledge</button>
+                </div>
+              </div>
+              <p class="form-message bg-danger hidden" id="invalid-email">Please enter a valid email.</p>
+              <p class="form-message bg-danger hidden" id="server-error">Something went wrong. Please try again.</p>
+            </form>
+            <p>Pledge a quarter for each time Trump tweets something &hellip; Trumpy. We'll tally up the tweets and remind you once a week. Unsubscribe at any time! Your email will not be shared or used for any other purpose.</p>
+            <p>
+              <button class="btn btn-share share-fb" type="button" data-url="http://ifihadaquarter.com"><img src="/img/icon-fb.svg" alt=""> Share on Facebook</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="body-footer">Built by <a href="http://devprogress.us">DevProgress</a>, an independent group fighting Trump and supporting progressive causes nationwide.
+      Image by <a href="https://www.flickr.com/photos/gageskidmore/8567825104">Gage Skidmore</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>.
+    </footer>
+    <div class="overlay confirmation-container hidden" id="email-success">
+      <div class="confirmation-overlay close-overlay"></div>
+      <div class="confirmation-body">
+        <p>Thanks for pledging! You'll be getting an email soon letting you know what Trump's been up to in the Twitterverse and how much we need to fight back. Until then, why not tell your friends?</p>
+        <button class="btn btn-share share-fb" type="button" data-message="I'm donating a quarter to Hillary every time Trump tweets!" data-url="http://ifihadaquarter.com"><img src="/img/icon-fb.svg" alt=""> Share on Facebook</button>
+        <button class="btn btn-close close-overlay">&times;</button>
+      </div>
+    </div>
+    <script src="js/main.min.js"></script>
+    <!-- Load Facebook SDK for JavaScript-->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1874284682800311',
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+      };
+      
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+  </body>
+</html>
