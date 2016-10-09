@@ -100,8 +100,16 @@ import jQuery from 'jquery';
       email: email
     }).done(() => {
       $('#email-success').removeClass('hidden');
-    }).fail(() => {
-      $('#server-error').removeClass('hidden');
+    }).fail(xhr => {
+      if (xhr.status === 0) {
+        // Safari tries to send an OPTIONS request to Google Apps, which fails
+        // with 405 Method Not Allowed, although jQuery receives a status code
+        // of 0. In this case, though, the script actually succeeds.
+        // <https://github.com/DevProgress/swear-jar/issues/34>
+        $('#email-success').removeClass('hidden');
+      } else {
+        $('#server-error').removeClass('hidden');
+      }
     }).always(() => {
       $form.find('.btn-submit').removeAttr('disabled').html(submitText);
       submissionInProgress = false;
