@@ -31,7 +31,7 @@ importScripts("js/sw/sw-toolbox.js","js/sw/runtime-caching.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["css/main.css","eafa1bbc9196d60e010dd1cdd242c176"],["img/icon-fb.svg","5991b6173ac113723e01ee616ed64dd2"],["img/icon-twitter.svg","e98d74382482805d05147c009f069138"],["img/share.png","3daa2b9167151d87558c0fc2f7c12c43"],["index.html","ce3761965c703c32ded1f6efe0882ca5"],["js/main.min.js","7fed9221496c8bae587c089f4e0f5185"],["js/sw/runtime-caching.js","e3e34dcb62b5d62453b9215961585488"],["js/sw/sw-toolbox.js","1ca0f60210ecd50f5b6b80ebc325e7c3"],["manifest.json","db6252f40efa46e750b4a4b217ff3484"]];
+var PrecacheConfig = [["css/main.css","eafa1bbc9196d60e010dd1cdd242c176"],["img/icon-fb.svg","5991b6173ac113723e01ee616ed64dd2"],["img/icon-twitter.svg","e98d74382482805d05147c009f069138"],["img/share.png","3daa2b9167151d87558c0fc2f7c12c43"],["index.html","099390dacdebbc354aef3f43c1f71504"],["js/main.min.js","7fed9221496c8bae587c089f4e0f5185"],["js/sw/runtime-caching.js","e3e34dcb62b5d62453b9215961585488"],["js/sw/sw-toolbox.js","1ca0f60210ecd50f5b6b80ebc325e7c3"],["manifest.json","db6252f40efa46e750b4a4b217ff3484"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1-web-starter-kit-' + (self.registration ? self.registration.scope : '') + '-';
 
