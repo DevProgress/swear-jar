@@ -57,8 +57,39 @@ import jQuery from 'jquery';
   }
 
   // Your custom JavaScript goes here
+  // Initialize Firebase
+  const config = {
+    apiKey: 'AIzaSyCvg_xjgQ-XzqTgK_21HnnvHWN58vA3ICo',
+    authDomain: 'devprogress-swearjar.firebaseapp.com',
+    databaseURL: 'https://devprogress-swearjar.firebaseio.com',
+    storageBucket: '',
+    messagingSenderId: '159937394443'
+  };
+  window.firebase.initializeApp(config);
+
   /** {boolean} Whether an AJAX post is pending. */
   let submissionInProgress = false;
+
+  /** {firebase.database} Firebase database. */
+  const database = window.firebase.database();
+
+  /**
+   * Creates a new entry in the Firebase database.
+   * @param {string} email - The email of the pledge.
+   * @param {string} reason - The motivation behind the pledge.
+   * @prarm {number} amount - The amount of the pledge per reason occurence.
+   * @param {firebase.Promise}
+   */
+  function createPledge(email, reason, amount) {
+    const data = {
+      email: email,
+      reason: reason,
+      amount: amount,
+      timestamp: window.firebase.database.ServerValue.TIMESTAMP
+    }
+    const newPostKey = database.ref().child('pledges').push().key;
+    return database.ref(`pledges/${newPostKey}`).update(data);
+  }
 
   // Handle form submissions.
   $('#signup').on('submit', function(e) {
@@ -72,6 +103,12 @@ import jQuery from 'jquery';
 
     /** {string} The value of the email field. */
     const email = $form.find('[name="email"]').val();
+
+    /** {string} The reason for the pledge.. */
+    const reason = $form.find('[name="reason"]').val();
+
+    /** {number} The amount being pledged. */
+    const amount = parseFloat($form.find('[name="amount"]').val());
 
     /** {jQuery} The cached submission button. */
     const $submitButton = $form.find('.btn-submit');
@@ -96,28 +133,21 @@ import jQuery from 'jquery';
     submissionInProgress = true;
     $form.find('.btn-submit').attr('disabled', 'disabled')
         .html('Loading&hellip;');
-    $.post($form.attr('action'), {
-      email: email
-    }).done(() => {
+
+    createPledge(email, reason, amount).then(() => {
       $('#email-success').removeClass('hidden');
       $('#email').blur();
-    }).fail(xhr => {
-      if (xhr.status === 0) {
-        // Safari tries to send an OPTIONS request to Google Apps, which fails
-        // with 405 Method Not Allowed, although jQuery receives a status code
-        // of 0. In this case, though, the script actually succeeds.
-        // <https://github.com/DevProgress/swear-jar/issues/34>
-        $('#email-success').removeClass('hidden');
-        $('#email').blur();
-      } else {
-        $('#server-error').removeClass('hidden');
-      }
-    }).always(() => {
-      $form.find('.btn-submit').removeAttr('disabled').html(submitText);
+      $submitButton.removeAttr('disabled').html(submitText);
       submissionInProgress = false;
+    }, (error) => {
+      $('#server-error').removeClass('hidden');
+      $submitButton.removeAttr('disabled').html(submitText);
+      submissionInProgress = false;
+      console.log(error);
     });
   });
 
+  // Handle Facebook Share clicks.
   $(document).on('click', '.share-fb', e => {
     e.preventDefault();
     const shareMessage = $(e.currentTarget).data('message');

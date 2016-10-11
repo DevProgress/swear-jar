@@ -32,7 +32,7 @@ html(lang='en-us')
             h1.main-header Donate a quarter to Hillary every time Trump tweets. #[img(src='/img/icon-twitter.svg', alt='')]
         .row
           .col-xs-12.main-content
-            form#signup(action='https://script.google.com/macros/s/AKfycbyTuqk69p3R7v419Vhuqb8g1soBW5NrxbqkUvcU2gwB1nmlnpQ/exec', method='POST')
+            form#signup
               legend.form-header Sign me up!
               .form-row
                 .form-group
@@ -40,6 +40,8 @@ html(lang='en-us')
                   input#email.form-control(type='email', name='email', placeholder='Email address', required)
                 .form-submit
                   button.btn.btn-submit Pledge
+              input(type='hidden', name='reason', value='every time Trump tweets')
+              input(type='hidden', name='amount', value='.25')
               p#invalid-email.form-message.bg-danger.hidden Please enter a valid email.
               p#server-error.form-message.bg-danger.hidden Something went wrong. Please try again.
             p
@@ -58,7 +60,9 @@ html(lang='en-us')
             | #[img(src='/img/icon-fb.svg', alt='')] Share on Facebook
         button.btn.btn-close.close-overlay &times;
 
+    script(src='https://www.gstatic.com/firebasejs/3.4.1/firebase.js')
     script(src='js/main.min.js')
+
     // Load Facebook SDK for JavaScript
     script.
       window.fbAsyncInit = function() {
