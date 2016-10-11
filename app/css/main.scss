@@ -57,6 +57,18 @@ p {
     box-sizing: border-box;
     width: $contentWidth;
   }
+
+  a:link,
+  a:visited {
+    color: $color-white;
+    font-weight: $font-weight-bold;
+  }
+
+  a:hover,
+  a:active,
+  a:focus {
+    text-decoration: underline;
+  }
 }
 
 .main-header {
