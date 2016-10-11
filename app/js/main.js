@@ -88,7 +88,10 @@ import jQuery from 'jquery';
       timestamp: window.firebase.database.ServerValue.TIMESTAMP
     }
     const newPostKey = database.ref().child('pledges').push().key;
-    return database.ref(`pledges/${newPostKey}`).update(data);
+
+    return window.firebase.auth().signInAnonymously().then(() => {
+      return database.ref(`pledges/${newPostKey}`).update(data);
+    });
   }
 
   // Handle form submissions.
@@ -113,9 +116,6 @@ import jQuery from 'jquery';
     /** {jQuery} The cached submission button. */
     const $submitButton = $form.find('.btn-submit');
 
-    /** {string} The initial text of the submit button. */
-    const submitText = $submitButton.html();
-
     /** {RegExp} A simple email validation. */
     const emailRegex = /.+@.+/;
 
@@ -131,17 +131,16 @@ import jQuery from 'jquery';
 
     // Submit the AJAX request and deal with its response.
     submissionInProgress = true;
-    $form.find('.btn-submit').attr('disabled', 'disabled')
-        .html('Loading&hellip;');
+    $form.find('.btn-submit').attr('disabled', 'disabled');
 
     createPledge(email, reason, amount).then(() => {
       $('#email-success').removeClass('hidden');
       $('#email').blur();
-      $submitButton.removeAttr('disabled').html(submitText);
+      $submitButton.removeAttr('disabled');
       submissionInProgress = false;
     }, (error) => {
       $('#server-error').removeClass('hidden');
-      $submitButton.removeAttr('disabled').html(submitText);
+      $submitButton.removeAttr('disabled');
       submissionInProgress = false;
       console.log(error);
     });
