@@ -80,10 +80,10 @@ import jQuery from 'jquery';
   });
 
   function getDisplayTextFromReason(reasonText) {
-    if (reasonText == "interrupts Hillary") {
-      return "interrupts Hillary at the debate";
+    if (reasonText === "interrupts Hillary") {
+      return 'interrupts Hillary at the debate. We\'ll send you the results after the debate';
     } else {
-      return reasonText;
+      return 'tweets. We\'ll tally up the tweets and remind you weekly';
     }
   }
 
@@ -225,7 +225,8 @@ import jQuery from 'jquery';
   // Handle Twitter share clicks.
   $('button.btn.btn-share.share-twitter').click(function(event) {
     var tweetParams = {};
-    tweetParams.hashtags = 'swearjar';
+    // We are removing hashtags for now until we can find an interesting one
+    // tweetParams.hashtags = 'swearjar';
     tweetParams.text = getShareMessage();
     var siteUrl = $(event.currentTarget).data('url') || window.location;
     tweetParams.url = siteUrl;

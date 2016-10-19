@@ -41,10 +41,10 @@ html(lang='en-us')
             h1.main-header Donate a quarter to Hillary every time Trump ...
               .dropdown
                 button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                  | <span class="reason"></span> #[img(src='/img/dropdown-arrow.png', alt='')]
+                  | <span class="reason">interrupts Hillary</span> #[img(src='/img/dropdown-arrow.png', alt='')]
                 ul.dropdown-menu(aria-labelledby='dropdownMenuButton')
+                  li.dropdown-item(selected=true) interrupts Hillary
                   li.dropdown-item tweets
-                  li.dropdown-item interrupts Hillary
         .row
           .col-xs-12.main-content
             form#signup
@@ -60,7 +60,7 @@ html(lang='en-us')
               p#invalid-email.form-message.bg-danger.hidden Please enter a valid email.
               p#server-error.form-message.bg-danger.hidden Something went wrong. Please try again.
             p
-              | Pledge a quarter each time Trump <span class="display-reason">tweets</span>. We'll tally up the tweets and remind you weekly. Unsubscribe at any time. Emails won't be used for any other purpose. No credit card info required; donate directly through #[a(href='https://www.hillaryclinton.com') www.hillaryclinton.com].
+              | Pledge a quarter each time Trump <span class="display-reason">interrupts Hillary at the debate. We'll send you the results after the debate</span>. Unsubscribe at any time. Emails won't be used for any other purpose. No credit card info required; donate directly through #[a(href='https://www.hillaryclinton.com') www.hillaryclinton.com].
             p
               button.btn.btn-share.share-fb(type='button', data-url=siteUrl)
                 | #[img(src='/img/icon-fb.svg', alt='')] Share on Facebook
