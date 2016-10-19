@@ -95,11 +95,13 @@ import jQuery from 'jquery';
 
   // Build dropdown menu
   for (var key in dropDownData) {
-    $('ul.dropdown-menu').append(
-      $('<li>').addClass('dropdown-item').attr('value', key).append(
-        dropDownData[key].optionText
-      )
-    );
+    if (dropDownData.hasOwnProperty(key)) {
+      $('ul.dropdown-menu').append(
+        $('<li>').addClass('dropdown-item').attr('value', key).append(
+          dropDownData[key].optionText
+        )
+      );
+    }
   }
 
   // Dropdown
@@ -125,7 +127,7 @@ import jQuery from 'jquery';
     $('.display-reason').text(selectedValue.bodyText);
 
     // Update form value
-    selectedReasonFormField.val(value.optionText);
+    selectedReasonFormField.val(selectedValue.optionText);
   }
 
   function getSelectedReason() {
