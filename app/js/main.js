@@ -79,30 +79,61 @@ import jQuery from 'jquery';
     $('#pledge-count-wrapper').removeClass('hidden');
   });
 
-  function getDisplayTextFromReason(reasonText) {
-    if (reasonText === "interrupts Hillary") {
-      return 'interrupts Hillary at the debate. We\'ll send you the results after the debate';
-    } else {
-      return 'tweets. We\'ll tally up the tweets and remind you weekly';
+  // Build dropdown data
+  const dropDownData = {
+    interrupts: {
+      optionText: 'interrupts Hillary',
+      bodyText: 'interrupts Hillary at the debate. We\'ll send you the results after the debate',
+      shareMessage: 'I\'m pledging a quarter each time #TrumpInterruptsHillary and you can too!'
+    },
+    tweets: {
+      optionText: 'tweets',
+      bodyText: 'tweets. We\'ll tally up the tweets and remind you weekly',
+      shareMessage: 'I\'m pledging a quarter each time #TrumpTweets and you can too!'
     }
+  };
+
+  // Build dropdown menu
+  for (var key in dropDownData) {
+    $('ul.dropdown-menu').append(
+      $('<li>').addClass('dropdown-item').attr('value', key).append(
+        dropDownData[key].optionText
+      )
+    );
   }
 
   // Dropdown
   let $form = $('form#signup');
   let selectedReasonFormField = $form.find('[name="reason"]');
   $('.dropdown-item').click(function(e) {
-    var reasonText = $(e.currentTarget).text();
-    var displayText = getDisplayTextFromReason(reasonText);
+    setDropdownValue($(e.currentTarget).attr('value'));
+  });
+
+  function setDropdownValue(value) {
+    // clear current selected
+    $('ul.dropdown-menu li[selected]').removeAttr('selected');
+
+    // Set the item as selected
+    $('ul.dropdown-menu li[value=' + value + ']').attr('selected', 'true');
+
+    var selectedValue = getSelectedReason();
 
     // Update text in header
-    $('.reason').text(reasonText);
+    $('.reason').text(selectedValue.optionText);
 
     // Update text in main body (use display version)
-    $('.display-reason').text(displayText);
+    $('.display-reason').text(selectedValue.bodyText);
 
     // Update form value
-    selectedReasonFormField.val(reasonText);
-  });
+    selectedReasonFormField.val(value.optionText);
+  }
+
+  function getSelectedReason() {
+    return dropDownData[$('ul.dropdown-menu li[selected]').attr('value')];
+  }
+
+  // Set default dropdown value
+  setDropdownValue('interrupts');
 
   /**
    * Creates a new entry in the Firebase database.
@@ -193,12 +224,8 @@ import jQuery from 'jquery';
     });
   });
 
-  var baseShareMessage = 'I\'m donating a quarter to Hillary every time Trump ';
-
   function getShareMessage() {
-    var reasonText = selectedReasonFormField.val();
-    var displayText = getDisplayTextFromReason(reasonText);
-    return baseShareMessage + displayText;
+    return getSelectedReason().shareMessage;
   }
 
   // Handle Facebook Share clicks.
