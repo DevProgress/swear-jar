@@ -79,16 +79,28 @@ import jQuery from 'jquery';
     $('#pledge-count-wrapper').removeClass('hidden');
   });
 
+  function getDisplayTextFromReason(reasonText) {
+    if (reasonText == "interrupts Hillary") {
+      return "interrupts Hillary at the debate";
+    } else {
+      return reasonText;
+    }
+  }
+
   // Dropdown
   let $form = $('form#signup');
   let selectedReasonFormField = $form.find('[name="reason"]');
   $('.dropdown-item').click(function(e) {
     var reasonText = $(e.currentTarget).text();
+    var displayText = getDisplayTextFromReason(reasonText);
 
-    // Switch text in copy
+    // Update text in header
     $('.reason').text(reasonText);
 
-    // update form value
+    // Update text in main body (use display version)
+    $('.display-reason').text(displayText);
+
+    // Update form value
     selectedReasonFormField.val(reasonText);
   });
 
@@ -183,11 +195,17 @@ import jQuery from 'jquery';
 
   var baseShareMessage = 'I\'m donating a quarter to Hillary every time Trump ';
 
+  function getShareMessage() {
+    var reasonText = selectedReasonFormField.val();
+    var displayText = getDisplayTextFromReason(reasonText);
+    return baseShareMessage + displayText;
+  }
+
   // Handle Facebook Share clicks.
   $(document).on('click', '.share-fb', e => {
     e.preventDefault();
 
-    const shareMessage = baseShareMessage + selectedReasonFormField.val();
+    const shareMessage = getShareMessage();
     const shareUrl = $(e.currentTarget).data('url') || window.location;
 
     const shareOptions = {
@@ -208,7 +226,7 @@ import jQuery from 'jquery';
   $('button.btn.btn-share.share-twitter').click(function(event) {
     var tweetParams = {};
     tweetParams.hashtags = 'swearjar';
-    tweetParams.text = baseShareMessage + selectedReasonFormField.val();
+    tweetParams.text = getShareMessage();
     var siteUrl = $(event.currentTarget).data('url') || window.location;
     tweetParams.url = siteUrl;
     var tweetUrl = 'https://twitter.com/intent/tweet?original_referer=' +
