@@ -153,6 +153,7 @@ p {
   img {
     height: 1em;
     vertical-align: baseline;
+    padding-right: 3px;
     @include position(relative, .1em null null null);
   }
 }
@@ -182,7 +183,7 @@ p {
 .confirmation-body {
   background: $color-white;
   box-sizing: border-box;
-  max-width: 300px;
+  max-width: 400px;
   padding: 20px;
   width: 100%;
   z-index: 2;
