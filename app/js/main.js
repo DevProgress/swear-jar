@@ -55,6 +55,22 @@ import jQuery from 'jquery';
       console.error('Error during service worker registration:', e);
     });
   }
+  const twitterShareMessage = 'I\'m donating a quarter to Hillary every time Trump tweets!';
+  const siteUrl = 'http://ifihadaquarter.com';
+  var tweetParams = {};
+  tweetParams.hashtags = 'swearjar';
+  tweetParams.text = twitterShareMessage;
+  tweetParams.url = siteUrl;
+  var tweetUrl = 'https://twitter.com/intent/tweet?original_referer=' + siteUrl + '&' + $.param(tweetParams);
+  // Set up twitter share button
+  $('a.twitter-share-button').attr('href', tweetUrl);
+  $('button.btn.btn-share.share-twitter').click(function(event) {
+    // Set up twitter params
+    var windowName = 'Share on Twitter';
+    var windowSize = 'width=550,height=420';
+    window.open(tweetUrl, windowName, windowSize);
+    event.preventDefault();
+  });
 
   // Your custom JavaScript goes here
   // Initialize Firebase
