@@ -55,22 +55,6 @@ import jQuery from 'jquery';
       console.error('Error during service worker registration:', e);
     });
   }
-  const twitterShareMessage = 'I\'m donating a quarter to Hillary every time Trump tweets!';
-  const siteUrl = 'http://ifihadaquarter.com';
-  var tweetParams = {};
-  tweetParams.hashtags = 'swearjar';
-  tweetParams.text = twitterShareMessage;
-  tweetParams.url = siteUrl;
-  var tweetUrl = 'https://twitter.com/intent/tweet?original_referer=' + siteUrl + '&' + $.param(tweetParams);
-  // Set up twitter share button
-  $('a.twitter-share-button').attr('href', tweetUrl);
-  $('button.btn.btn-share.share-twitter').click(function(event) {
-    // Set up twitter params
-    var windowName = 'Share on Twitter';
-    var windowSize = 'width=550,height=420';
-    window.open(tweetUrl, windowName, windowSize);
-    event.preventDefault();
-  });
 
   // Your custom JavaScript goes here
   // Initialize Firebase
@@ -197,21 +181,20 @@ import jQuery from 'jquery';
     });
   });
 
+  var baseShareMessage = 'I\'m donating a quarter to Hillary every time Trump ';
+
   // Handle Facebook Share clicks.
   $(document).on('click', '.share-fb', e => {
     e.preventDefault();
 
-    const shareMessage = $(e.currentTarget).data('message');
+    const shareMessage = baseShareMessage + selectedReasonFormField.val();
     const shareUrl = $(e.currentTarget).data('url') || window.location;
 
     const shareOptions = {
       method: 'share',
-      href: shareUrl
+      href: shareUrl,
+      quote: shareMessage
     };
-
-    if (shareMessage) {
-      shareOptions.quote = shareMessage;
-    }
 
     window.FB.ui(shareOptions, function() {
       const $overlayParent = $(e.currentTarget).parents('.overlay');
@@ -219,6 +202,22 @@ import jQuery from 'jquery';
         $overlayParent.addClass('hidden');
       }
     });
+  });
+
+  // Handle Twitter share clicks.
+  $('button.btn.btn-share.share-twitter').click(function(event) {
+    var tweetParams = {};
+    tweetParams.hashtags = 'swearjar';
+    tweetParams.text = baseShareMessage + selectedReasonFormField.val();
+    var siteUrl = $(event.currentTarget).data('url') || window.location;
+    tweetParams.url = siteUrl;
+    var tweetUrl = 'https://twitter.com/intent/tweet?original_referer=' +
+        siteUrl + '&' + $.param(tweetParams);
+
+    var windowName = 'Share on Twitter';
+    var windowSize = 'width=550,height=420';
+    window.open(tweetUrl, windowName, windowSize);
+    event.preventDefault();
   });
 
   $('.overlay').on('click', '.close-overlay', e => {
